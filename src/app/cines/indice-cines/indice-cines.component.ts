@@ -14,7 +14,7 @@ export class IndiceCinesComponent implements OnInit {
   constructor(private cinesService: CinesService){}
 
   
-  generos: cineDTO[];
+  cines: cineDTO[];
   columnasAMostrar = ['id','nombre','acciones'];
   cantidadTotalRegistros;
   paginaActual = 1;
@@ -28,7 +28,7 @@ export class IndiceCinesComponent implements OnInit {
   cargarRegistros(pagina: number, cantidadElementosAMostrar ){
     this.cinesService.obtenerTodos(pagina, cantidadElementosAMostrar)
     .subscribe((respuesta: HttpResponse<cineDTO[]>) => {
-      this.generos = respuesta.body;
+      this.cines = respuesta.body;
      // console.log(respuesta.headers.get("cantidadTotalRegistros"));
       this.cantidadTotalRegistros = respuesta.headers.get("cantidadTotalRegistros");
       

@@ -28,9 +28,19 @@ export class CinesService {
     //{observe: 'response'} con este vinculo la paginación
   }
   
+  public obtenerPorId(id: number): Observable<cineDTO>{
+    return this.http.get<cineDTO>(`${this.apiURL}/${id}`);
+  }
+
+
+  public editar(id: number, cines: cineCreacionDTO){
+    return this.http.put(`${this.apiURL}/${id}`, cines);
+}
   /*
-  public editar(id: number, cine: cineCreacionDTO){
-    return this.http.put(`${this.apiURL}/${id}`, cine);
+public crear(genero: generoCreacionDTO) {
+  return this.http.post(this.apiURL, genero);
+}
+
   }
   */
   public borrar(id: number){
