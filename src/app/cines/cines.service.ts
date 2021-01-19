@@ -33,8 +33,8 @@ export class CinesService {
   }
 
 
-  public editar(id: number, cines: cineCreacionDTO){
-    return this.http.put(`${this.apiURL}/${id}`, cines);
+  public editar(id: number, cine: cineCreacionDTO){
+    return this.http.put(`${this.apiURL}/${id}`, cine);
 }
   /*
 public crear(genero: generoCreacionDTO) {
