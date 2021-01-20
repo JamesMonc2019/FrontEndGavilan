@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment.prod';
 import { Observable } from 'rxjs';
-import { PeliculaPostGet, PeliculaCreacionDTO } from './pelicula';
+import { PeliculaPostGet, PeliculaCreacionDTO, PeliculaDTO, LandingPageDTO, PeliculaPutGet } from './pelicula';
 import { formatearFecha } from '../utilidades/utilidades';
 
 @Injectable({
@@ -13,13 +13,40 @@ export class PeliculasService {
   constructor(private http: HttpClient) { }
   private apiURL = environment.apiURL + 'peliculas';
 
+  public obtenerLandingPage(): Observable<LandingPageDTO>{
+    return this.http.get<LandingPageDTO>(this.apiURL);
+  }
+
+  public obtenerPorId(id:number): Observable<PeliculaDTO>{
+    return this.http.get<PeliculaDTO>(`${this.apiURL}/${id}`);
+  }
+
   public postGet(): Observable<PeliculaPostGet>{
     return this.http.get<PeliculaPostGet>(`${this.apiURL}/postget`);
   }
 
-  public crear(pelicula: PeliculaCreacionDTO){
+  public putGet(id: number): Observable<PeliculaPutGet>{
+    return this.http.get<PeliculaPutGet>(`${this.apiURL}/putget/${id}`);
+  }
+
+  public filtrar(valores: any): Observable<any>{
+    const params = new HttpParams({fromObject: valores});
+    return this.http.get<PeliculaDTO[]>(`${this.apiURL}/filtrar`,
+    {params, observe: 'response'});
+  }
+
+  public editar(id: number, pelicula: PeliculaCreacionDTO){
     const formData = this.ConstruirFormData(pelicula);
-    return this.http.post(this.apiURL, formData);
+    return this.http.put(`${this.apiURL}/${id}`, formData);
+  }
+
+  public crear(pelicula: PeliculaCreacionDTO):Observable<number> {
+    const formData = this.ConstruirFormData(pelicula);
+    return this.http.post<number>(this.apiURL, formData);
+  }
+
+  public borrar(id: number){
+    return this.http.delete(`${this.apiURL}/${id}`);
   }
 
   private ConstruirFormData(pelicula: PeliculaCreacionDTO): FormData {

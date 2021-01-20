@@ -16,7 +16,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTableModule } from '@angular/material/table';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [],
@@ -35,7 +36,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
    MatTableModule,
    DragDropModule,
    MatPaginatorModule,
-   MatProgressSpinnerModule
+   MatProgressSpinnerModule,
+   MatChipsModule
   ],
   imports: [
     CommonModule
