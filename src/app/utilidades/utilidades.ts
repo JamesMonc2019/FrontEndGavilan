@@ -1,3 +1,4 @@
+import { error } from 'protractor';
 export function toBase64(file: File){
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -13,7 +14,10 @@ export function parsearErroresAPI(response: any): string[] {
     if(response.error){
         if(typeof response.error === 'string') {
             resultado.push(response.error);
-        } else {
+        } else if(Array.isArray(response.error)){
+                response.error.forEach(valor => resultado.push(valor.descripcion));                        
+        }
+        else {
             const mapaErrores = response.error.errors;
             const entradas = Object.entries(mapaErrores);
             entradas.forEach((arreglo: any[]) => {
